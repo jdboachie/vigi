@@ -1,21 +1,30 @@
-import pg, { QueryResult } from 'pg'
-const { Client } = pg
+'use client';
 
-// const pool = new Pool({
-//   user: 'postgres',
-//   password: 'postgres',
-//   host: '0.0.0.0',
-//   port: 5432,
-//   database: 'sql_demo',
-// })
+import { useSettings } from '@/components/settings-context';
+import { useCallback } from 'react';
+import pg, { QueryResult } from 'pg';
+const { Client } = pg;
+import { toast } from 'sonner';
 
-const connectionString = `postgres://postgres.bmcetebocbqqshyextzi:pzB&Q-zX~DsP.7D@aws-0-eu-central-1.pooler.supabase.com:5432/postgres`
-const client = new Client ({
-  connectionString,
-  password: 'pzB&Q-zX~DsP.7D'
-})
+const useDatabase = () => {
+  const { settings } = useSettings();
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const query = (text: string): Promise<QueryResult<any>> | null => {
-  return client.query(text)
-}
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const query = useCallback(async (text: string): Promise<QueryResult<any> | null> => {
+    const client = new Client(settings);
+
+    try {
+      await client.connect();
+      return await client.query(text);
+    } catch (error) {
+      toast.error('Error executing query', { description: error!.toString() });
+      return null;
+    } finally {
+      client.end();
+    }
+  }, [settings]);
+
+  return { query };
+};
+
+export default useDatabase;
