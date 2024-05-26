@@ -6,7 +6,7 @@ import { SettingsView } from "./settings-view"
 const SettingsBar = () => {
   return (
     <nav
-      className="p-1.5 max-h-fit flex justify-between border-b"
+      className="p-2 max-h-fit flex justify-between border-b"
     >
       <div className="p-1.5">
         <h1 className="text-lg font-bold"></h1>

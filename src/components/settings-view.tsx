@@ -1,9 +1,13 @@
 'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { toast } from "sonner";
+import { useForm } from "react-hook-form";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Database } from '@phosphor-icons/react';
+import { useSettings } from "./settings-context";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Dialog,
   DialogContent,
@@ -14,7 +18,6 @@ import {
   DialogTrigger,
   DialogClose,
 } from "@/components/ui/dialog";
-import { Database } from '@phosphor-icons/react';
 import {
   Form,
   FormControl,
@@ -23,9 +26,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { toast } from "sonner";
-import { useSettings } from "./settings-context";
+
 
 const FormSchema = z.object({
   user: z.string().min(1, { message: "User is required." }),
@@ -57,91 +58,93 @@ function SettingsForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-2 gap-2">
-        <FormField
-          control={form.control}
-          name="user"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>User</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input type="password" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="host"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Host</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="port"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Port</FormLabel>
-              <FormControl>
-                <Input type="number" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="database"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Database</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="connectionString"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Connection String</FormLabel>
-              <FormControl>
-                <Input placeholder="Connection String" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <DialogFooter className="col-span-2 mt-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="">
+        <div className="grid grid-cols-2 gap-4 px-6">
+          <FormField
+            control={form.control}
+            name="user"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>User</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input type="password" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="host"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Host</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="port"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Port</FormLabel>
+                <FormControl>
+                  <Input type="number" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="database"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Database</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="connectionString"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Connection String</FormLabel>
+                <FormControl>
+                  <Input placeholder="Connection String" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <DialogFooter className="col-span-2">
           <DialogClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button size={'default'} variant="outline">Cancel</Button>
           </DialogClose>
           <DialogClose asChild>
-            <Button type="submit">Save changes</Button>
+            <Button size={'default'} type="submit">Save changes</Button>
           </DialogClose>
         </DialogFooter>
       </form>
@@ -154,7 +157,7 @@ export function SettingsView() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="ghost" size={'icon'}>
+        <Button variant="outline" size={'icon'}>
           <Database size={16} />
         </Button>
       </DialogTrigger>

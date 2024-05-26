@@ -1,10 +1,11 @@
 'use client';
 
-import { useSettings } from '@/components/settings-context';
+import { toast } from 'sonner';
 import { useCallback } from 'react';
 import pg, { QueryResult } from 'pg';
+import { useSettings } from '@/components/settings-context';
+
 const { Client } = pg;
-import { toast } from 'sonner';
 
 const useDatabase = () => {
   const { settings } = useSettings();
