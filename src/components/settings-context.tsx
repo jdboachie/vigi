@@ -7,12 +7,13 @@ import {
 } from "react";
 
 
-interface Settings {
+export interface Settings {
   user: string,
   password: string,
   host: string,
   port: number,
   database: string,
+  ssl? : boolean,
   connectionString?: string | undefined
 }
 
@@ -30,6 +31,7 @@ export const SettingsProvider = ({ children }: { children: React.ReactNode}) => 
     host: '0.0.0.0',
     port: 5432,
     database: 'sql_demo',
+    ssl: false,
   });
 
   return (

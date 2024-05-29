@@ -18,7 +18,6 @@ export const theme = {
   extend: {
     fontFamily: {
       cascadia: ['CascadiaCode', 'sans-serif'],
-      sans: ['Inter', 'sans-serif'],
     },
     colors: {
       border: "hsl(var(--border))",

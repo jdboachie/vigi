@@ -32,8 +32,9 @@ function createWindow() {
     center: true,
     height: 650,
     width: 950,
+    autoHideMenuBar: true,
     webPreferences: {
-      nodeIntegration: true, // this is a 
+      nodeIntegration: true, // this is a
       contextIsolation: false,
       preload: path.join(__dirname, 'preload.mjs'),
     },
